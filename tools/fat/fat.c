@@ -25,15 +25,12 @@ typedef struct
     uint32_t HiddenSectors;
     uint32_t LargeSectorCount;
 
-    // extended boot record
     uint8_t DriveNumber;
     uint8_t _Reserved;
     uint8_t Signature;
-    uint32_t VolumeId;          // serial number, value doesn't matter
-    uint8_t VolumeLabel[11];    // 11 bytes, padded with spaces
+    uint32_t VolumeId;          
+    uint8_t VolumeLabel[11];    
     uint8_t SystemId[8];
-
-    // ... we don't care about code ...
 
 } __attribute__((packed)) BootSector;
 

@@ -9,9 +9,7 @@ BUILD_DIR=build
 
 all: floppy_image tools_fat
 
-#
-# Floppy image
-#
+
 floppy_image: $(BUILD_DIR)/main_floppy.img
 
 $(BUILD_DIR)/main_floppy.img: bootloader kernel
@@ -21,38 +19,28 @@ $(BUILD_DIR)/main_floppy.img: bootloader kernel
 	mcopy -i $(BUILD_DIR)/main_floppy.img $(BUILD_DIR)/kernel.bin "::kernel.bin"
 	mcopy -i $(BUILD_DIR)/main_floppy.img test.txt "::test.txt"
 
-#
-# Bootloader
-#
+
 bootloader: $(BUILD_DIR)/bootloader.bin
 
 $(BUILD_DIR)/bootloader.bin: always
 	$(ASM) $(SRC_DIR)/bootloader/boot.asm -f bin -o $(BUILD_DIR)/bootloader.bin
 
-#
-# Kernel
-#
+
 kernel: $(BUILD_DIR)/kernel.bin
 
 $(BUILD_DIR)/kernel.bin: always
 	$(ASM) $(SRC_DIR)/kernel/main.asm -f bin -o $(BUILD_DIR)/kernel.bin
 
-#
-# Tools
-#
+
 tools_fat: $(BUILD_DIR)/tools/fat
 $(BUILD_DIR)/tools/fat: always $(TOOLS_DIR)/fat/fat.c
 	mkdir -p $(BUILD_DIR)/tools
 	$(CC) -g -o $(BUILD_DIR)/tools/fat $(TOOLS_DIR)/fat/fat.c
 
-#
-# Always
-#
+
 always:
 	mkdir -p $(BUILD_DIR)
 
-#
-# Clean
-#
+
 clean:
 	rm -rf $(BUILD_DIR)/*
