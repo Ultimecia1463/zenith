@@ -135,11 +135,9 @@ void _cdecl printf(const char* fmt, ...)
                                 argp = printf_number(argp, length, sign, radix);
                                 break;
 
-                    
                     default:    break;
                 }
 
-                
                 state = PRINTF_STATE_NORMAL;
                 length = PRINTF_LENGTH_DEFAULT;
                 radix = 10;
@@ -233,4 +231,17 @@ int* printf_number(int* argp, int length, bool sign, int radix)
         putc(buffer[pos]);
 
     return argp;
+}
+
+void print_buffer(const char* msg, const void far* buffer, uint16_t count)
+{
+    const uint8_t far* u8Buffer = (const uint8_t far*)buffer;
+    
+    puts(msg);
+    for (uint16_t i = 0; i < count; i++)
+    {
+        putc(g_HexChars[u8Buffer[i] >> 4]);
+        putc(g_HexChars[u8Buffer[i] & 0xF]);
+    }
+    puts("\r\n");
 }
