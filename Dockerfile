@@ -22,10 +22,8 @@ COPY . .
 RUN echo '#!/bin/bash\n' \
     'wget https://github.com/open-watcom/open-watcom-v2/releases/download/Current-build/open-watcom-2_0-c-linux-x64 -O /tmp/open-watcom-installer\n' \
     'chmod +x /tmp/open-watcom-installer\n' \
-    '/tmp/open-watcom-installer -f=override.inf -s\n' \ 
+    '/tmp/open-watcom-installer -f=override.inf -s --install-dir=/usr/bin/watcom\n' \ 
     'rm /tmp/open-watcom-installer\n' \
-    'export WATCOM=/usr/bin/watcom\n' \
-    'export PATH=$PATH:$WATCOM/binl\n' \
     'make\n' \
     'bash run.sh' > /opt/zenith/start.sh
 
