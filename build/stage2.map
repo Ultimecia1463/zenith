@@ -1,0 +1,160 @@
+Open Watcom Linker Version 2.0 beta Apr 21 2024 01:50:48 (32-bit)
+Copyright (c) 2002-2024 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       24/11/10 01:39:34
+Executable Image: /mnt/d/Zenith/build/stage2.bin
+creating a RAW Binary Image executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          00001a6c             00000168
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+_ENTRY                 CODE           AUTO           00000000        00000013
+_TEXT                  CODE           AUTO           00000013        00001a59
+CONST                  DATA           DGROUP         00001a6c        00000145
+CONST2                 DATA           DGROUP         00001bb2        00000011
+_DATA                  DATA           DGROUP         00001bc4        00000008
+_BSS                   BSS            DGROUP         00001bcc        00000008
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: /mnt/d/Zenith/build/stage2/asm/main.obj(main.asm)
+00000000       entry
+Module: /mnt/d/Zenith/build/stage2/asm/x86.obj(x86.asm)
+00000013       __U4D
+0000003a       __U4M
+00000054       _x86_div64_32
+00000082       _x86_Video_WriteCharTeletype
+00000095       _x86_Disk_Reset
+000000aa       _x86_Disk_Read
+000000e1       _x86_Disk_GetDriveParams
+Module: /mnt/d/Zenith/build/stage2/c/ctype.obj(/mnt/d/Zenith/src/bootloader/stage2/ctype.c)
+00000125+      islower_
+00000163       toupper_
+Module: /mnt/d/Zenith/build/stage2/c/disk.obj(/mnt/d/Zenith/src/bootloader/stage2/disk.c)
+000001ab       DISK_Initialize_
+00000221+      DISK_LBA2CHS_
+000002d4       DISK_ReadSectors_
+Module: /mnt/d/Zenith/build/stage2/c/fat.obj(/mnt/d/Zenith/src/bootloader/stage2/fat.c)
+00000371+      FAT_ReadBootSector_
+000003a5+      FAT_ReadFat_
+000003e9       FAT_Initialize_
+0000062f+      FAT_ClusterToLba_
+00000685+      FAT_OpenEntry_
+0000084f+      FAT_NextCluster_
+000008d8       FAT_Read_
+00000c3c       FAT_ReadEntry_
+00000c95       FAT_Close_
+00000d0c+      FAT_FindFile_
+00000e46       FAT_Open_
+Module: /mnt/d/Zenith/build/stage2/c/main.obj(/mnt/d/Zenith/src/bootloader/stage2/main.c)
+00000fc0       _cstart_
+00001bc8+      _g_data
+Module: /mnt/d/Zenith/build/stage2/c/memory.obj(/mnt/d/Zenith/src/bootloader/stage2/memory.c)
+0000116f       memcpy_
+000011e3       memset_
+00001242       memcmp_
+Module: /mnt/d/Zenith/build/stage2/c/stdio.obj(/mnt/d/Zenith/src/bootloader/stage2/stdio.c)
+000012bb       putc_
+000012e2+      puts_
+00001319+      puts_f_
+00001356       _printf
+000015d9+      printf_number_
+0000184d+      print_buffer_
+00001bb2+      _g_HexChars
+Module: /mnt/d/Zenith/build/stage2/c/string.obj(/mnt/d/Zenith/src/bootloader/stage2/string.c)
+000018c9       strchr_
+00001924+      strcpy_
+00001998       strlen_
+Module: /mnt/d/Zenith/build/stage2/c/utility.obj(/mnt/d/Zenith/src/bootloader/stage2/utility.c)
+000019d3+      align_
+
+
+                        +---------------------+
+                        |   Module Segments   |
+                        +---------------------+
+
+! = 32-bit segment
+c = initialized communal data
+
+Module          Segment               Class           Address         Size
+======          =======               =====           =======         ====
+
+main.asm        _ENTRY                CODE           00000000         00000013
+x86.asm         _TEXT                 CODE           00000013         00000112
+/mnt/d/Zenith/src/bootloader/stage2/ctype.c
+                _TEXT                 CODE           00000125         00000086
+                CONST                 DATA           00001a6c         00000000
+                CONST2                DATA           00001bb2         00000000
+                _DATA                 DATA           00001bc4         00000000
+/mnt/d/Zenith/src/bootloader/stage2/disk.c
+                _TEXT                 CODE           000001ab         000001c6
+                CONST                 DATA           00001a6c         00000000
+                CONST2                DATA           00001bb2         00000000
+                _DATA                 DATA           00001bc4         00000000
+/mnt/d/Zenith/src/bootloader/stage2/fat.c
+                _TEXT                 CODE           00000371         00000c4f
+                CONST                 DATA           00001a6c         00000107
+                CONST2                DATA           00001bb2         00000000
+                _DATA                 DATA           00001bc4         00000004
+                _BSS                  BSS            00001bcc         00000008
+/mnt/d/Zenith/src/bootloader/stage2/main.c
+                _TEXT                 CODE           00000fc0         000001af
+                CONST                 DATA           00001b74         0000003a
+                CONST2                DATA           00001bb2         00000000
+                _DATA                 DATA           00001bc8         00000004
+/mnt/d/Zenith/src/bootloader/stage2/memory.c
+                _TEXT                 CODE           0000116f         0000014c
+                CONST                 DATA           00001bae         00000000
+                CONST2                DATA           00001bb2         00000000
+                _DATA                 DATA           00001bcc         00000000
+/mnt/d/Zenith/src/bootloader/stage2/stdio.c
+                _TEXT                 CODE           000012bb         0000060e
+                CONST                 DATA           00001bae         00000003
+                CONST2                DATA           00001bb2         00000011
+                _DATA                 DATA           00001bcc         00000000
+/mnt/d/Zenith/src/bootloader/stage2/string.c
+                _TEXT                 CODE           000018c9         0000010a
+                CONST                 DATA           00001bb2         00000000
+                CONST2                DATA           00001bc4         00000000
+                _DATA                 DATA           00001bcc         00000000
+/mnt/d/Zenith/src/bootloader/stage2/utility.c
+                _TEXT                 CODE           000019d3         00000099
+                CONST                 DATA           00001bb2         00000000
+                CONST2                DATA           00001bc4         00000000
+                _DATA                 DATA           00001bcc         00000000
+Warning! W1014: stack segment not found
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  0200 (512.)
+Memory size:  1bd4 (7124.)
+Entry point address: 00000000
+Link time: 00:00.00

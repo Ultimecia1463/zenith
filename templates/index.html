@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith Build</title>
+    <style>
+        #logs {
+            white-space: pre-line; 
+            font-family: monospace; 
+            background-color: #f1f1f1;
+            padding: 10px;
+            border: 1px solid #989366;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zenith Build Logs</h1>
+
+    <div>
+        <button id="buildButton">Start Build</button>
+        <button id="runButton">Run Script</button>
+    </div>
+
+    <h2>Build Logs:</h2>
+    <div id="logs"></div>
+
+    <script>
+        document.getElementById('buildButton').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the button
+            fetch('/build', {
+                method: 'POST'
+            })
+            .then(response => response.text())
+            .then(data => {
+                const logs = document.getElementById('logs');
+                const cleanedData = data.replace(/^\s*[\r\n]/gm, '');
+                logs.textContent += cleanedData;  // Append new log data to the div
+                logs.scrollTop = logs.scrollHeight;  // Keep the scroll at the bottom
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('runButton').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the button
+            fetch('/run', {
+                method: 'POST'
+            })
+            .then(response => response.text())
+            .then(data => {
+                const logs = document.getElementById('logs');
+                const cleanedData = data.replace(/^\s*[\r\n]/gm, '');
+                logs.textContent += cleanedData; 
+                logs.scrollTop = logs.scrollHeight;  // Keep the scroll at the bottom
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
