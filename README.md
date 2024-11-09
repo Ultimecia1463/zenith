@@ -17,3 +17,8 @@ Contributions to Zenith OS are highly encouraged! Whether you are a seasoned dev
 
 ## Contact:
 For any questions, suggestions, or inquiries, feel free to contact the project maintainers at keshu1234harshu@email.com. You can also join our community channels for discussions and updates.
+
+
+```
+docker run -it --rm -e DISPLAY=192.168.1.6:0.0 -v /tmp/.X11-unix:/tmp/.X11-unix zenith:latest
+```
