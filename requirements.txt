@@ -1,0 +1,2 @@
+Flask==2.3.2  # or any version you're using
+gunicorn==20.1.0  # Optional: For production server setup
