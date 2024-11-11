@@ -23,7 +23,6 @@
     <div>
         <button id="buildButton">Start Build</button>
         <button id="runButton">Run Script</button>
-        <button id="watcomButton">Run Watcom Script</button> <!-- New button -->
     </div>
 
     <h2>Build Logs:</h2>
@@ -60,20 +59,6 @@
             .catch(error => console.error('Error:', error));
         });
 
-        document.getElementById('watcomButton').addEventListener('click', function(event) {  // New event listener
-            event.preventDefault();  // Prevent the default behavior of the button
-            fetch('/watcom', {  // New route to run watcom.sh
-                method: 'POST'
-            })
-            .then(response => response.text())
-            .then(data => {
-                const logs = document.getElementById('logs');
-                const cleanedData = data.replace(/^\s*[\r\n]/gm, '');
-                logs.textContent += cleanedData;  // Append new log data to the div
-                logs.scrollTop = logs.scrollHeight;  // Keep the scroll at the bottom
-            })
-            .catch(error => console.error('Error:', error));
-        });
     </script>
 </body>
 </html>

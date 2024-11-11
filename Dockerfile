@@ -24,16 +24,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 
 EXPOSE 8080
 
-RUN echo '#!/bin/bash\n' \
-    'wget https://github.com/open-watcom/open-watcom-v2/releases/download/Current-build/ow-snapshot.tar.xz -O /tmp/open-watcom-installer.tar.xz\n' \
-    'mkdir /usr/bin/watcom\n'  \
-    'tar -xf /tmp/open-watcom-installer.tar.xz -C /usr/bin/watcom\n'   > /opt/zenith/watcom.sh 
-#   'cd /tmp/open-watcom-v2\n' \
-#   './install.sh' > /opt/zenith/watcom.sh 
-
-RUN echo '#!/bin/bash\n' \
-    'make'  > /opt/zenith/build.sh
-
 RUN chmod +x /opt/zenith/watcom.sh
-RUN chmod +x /opt/zenith/build.sh
 RUN chmod +x /opt/zenith/run.sh
+
+ENTRYPOINT ["bash", "-c", "/opt/zenith/watcom.sh && python3 /opt/zenith/server.py"]
