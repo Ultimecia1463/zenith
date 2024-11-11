@@ -33,5 +33,10 @@ def run():
     # Stream the output of 'run.sh'
     return Response(run_command(['bash', './run.sh']), content_type='text/event-stream')
 
+@app.route('/watcom', methods=['POST'])
+def watcom():
+    # Stream the output of 'watcom.sh'
+    return Response(run_command(['bash', './watcom.sh']), content_type='text/event-stream')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
