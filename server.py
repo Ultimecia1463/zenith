@@ -4,6 +4,10 @@ from flask import Flask, render_template, Response
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return render_template('index.html')  # Render the HTML page
+
 def run_command(command):
     """ Run a shell command and stream the output in real-time """
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=1, universal_newlines=True)
@@ -19,10 +23,6 @@ def run_command(command):
     process.stderr.close()
     process.wait()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/build', methods=['POST'])
 def build():
     # Stream the output of 'make' and 'run.sh'
@@ -31,7 +31,7 @@ def build():
 @app.route('/run', methods=['POST'])
 def run():
     # Stream the output of 'run.sh'
-    return Response(run_command(['bash', './run.sh']), content_type='text/event-stream')
+    return Response(run_command(['./run.sh']), content_type='text/event-stream')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

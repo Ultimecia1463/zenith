@@ -1,8 +1,6 @@
-# Use Ubuntu as the base image
 FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install required tools and packages
 RUN apt-get update && apt-get install -y \
     build-essential \
     nasm \
@@ -11,27 +9,22 @@ RUN apt-get update && apt-get install -y \
     bochs-sdl \
     xorriso \
     wget \
+    mtools \
+    dosfstools \
+    python3 \
+    python3-pip \
+    x11-apps \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
 WORKDIR /opt/zenith
-
-# Copy project files to the container
 COPY . .
 
-RUN echo '#!/bin/bash\n' \
-    'wget https://github.com/open-watcom/open-watcom-v2/releases/download/Current-build/open-watcom-2_0-c-linux-x64 -O /tmp/open-watcom-installer\n' \
-    'chmod +x /tmp/open-watcom-installer\n' \
-    '/tmp/open-watcom-installer -f=override.inf -s --install-dir=/usr/bin/watcom\n' \ 
-    'rm /tmp/open-watcom-installer\n' \
-    'make\n' \
-    'bash run.sh' > /opt/zenith/start.sh
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Give execution permissions and run start.sh on container startup
-RUN chmod +x /opt/zenith/start.sh
+EXPOSE 8080
 
-ENTRYPOINT ["/opt/zenith/start.sh"]
+RUN chmod +x /opt/zenith/watcom.sh
+RUN chmod +x /opt/zenith/run.sh
 
-
-# Set the default command to run the start script
-CMD ["/opt/zenith/start.sh"]
+ENTRYPOINT ["bash", "-c", "/opt/zenith/watcom.sh && python3 /opt/zenith/server.py"]
