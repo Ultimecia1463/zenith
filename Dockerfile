@@ -1,8 +1,6 @@
-# Use Ubuntu as the base image
 FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install required tools and packages
 RUN apt-get update && apt-get install -y \
     build-essential \
     nasm \
@@ -11,27 +9,23 @@ RUN apt-get update && apt-get install -y \
     bochs-sdl \
     xorriso \
     wget \
+    mtools \
+    dosfstools \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
 WORKDIR /opt/zenith
-
-# Copy project files to the container
 COPY . .
 
 RUN echo '#!/bin/bash\n' \
-    'wget https://github.com/open-watcom/open-watcom-v2/releases/download/Current-build/open-watcom-2_0-c-linux-x64 -O /tmp/open-watcom-installer\n' \
-    'chmod +x /tmp/open-watcom-installer\n' \
-    '/tmp/open-watcom-installer -f=override.inf -s --install-dir=/usr/bin/watcom\n' \ 
-    'rm /tmp/open-watcom-installer\n' \
-    'make\n' \
-    'bash run.sh' > /opt/zenith/start.sh
+    'wget https://github.com/open-watcom/open-watcom-v2/releases/download/Current-build/ow-snapshot.tar.xz -O /tmp/open-watcom-installer.tar.xz\n' \
+    'mkdir /usr/bin/watcom\n'  \
+    'tar -xf /tmp/open-watcom-installer.tar.xz -C /usr/bin/watcom\n'   > /opt/zenith/watcom.sh 
+#   'cd /tmp/open-watcom-v2\n' \
+#   './install.sh' > /opt/zenith/watcom.sh 
 
-# Give execution permissions and run start.sh on container startup
-RUN chmod +x /opt/zenith/start.sh
+RUN echo '#!/bin/bash\n' \
+    'make'  > /opt/zenith/build.sh
 
-ENTRYPOINT ["/opt/zenith/start.sh"]
-
-
-# Set the default command to run the start script
-CMD ["/opt/zenith/start.sh"]
+RUN chmod +x /opt/zenith/watcom.sh
+RUN chmod +x /opt/zenith/build.sh
+RUN chmod +x /opt/zenith/run.sh
