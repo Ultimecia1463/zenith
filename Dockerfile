@@ -11,10 +11,18 @@ RUN apt-get update && apt-get install -y \
     wget \
     mtools \
     dosfstools \
+    python3 \
+    python3-pip \
+    x11-apps \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/zenith
 COPY . .
+
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+EXPOSE 8080
 
 RUN echo '#!/bin/bash\n' \
     'wget https://github.com/open-watcom/open-watcom-v2/releases/download/Current-build/ow-snapshot.tar.xz -O /tmp/open-watcom-installer.tar.xz\n' \

@@ -4,6 +4,13 @@ from flask import Flask, render_template, Response
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return "Hello, Zenith!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
 def run_command(command):
     """ Run a shell command and stream the output in real-time """
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=1, universal_newlines=True)
