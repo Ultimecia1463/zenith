@@ -6,10 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Hello, Zenith!"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    return render_template('index.html')  # Render the HTML page
 
 def run_command(command):
     """ Run a shell command and stream the output in real-time """
@@ -26,10 +23,6 @@ def run_command(command):
     process.stderr.close()
     process.wait()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/build', methods=['POST'])
 def build():
     # Stream the output of 'make' and 'run.sh'
@@ -41,4 +34,4 @@ def run():
     return Response(run_command(['bash', './run.sh']), content_type='text/event-stream')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
