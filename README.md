@@ -11,7 +11,6 @@ Zenith OS is an ambitious endeavor to develop a new operating system from scratc
 ---
 ```
  docker build -t zenith:latest .
-
 ```
 ---
 
