@@ -5,15 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenith Build</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #5a6268;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #343a40;
+            margin-top: 40px;
+        }
+
         #logs {
             white-space: pre-line; 
             font-family: monospace; 
-            background-color: #f1f1f1;
-            padding: 10px;
-            border: 1px solid #989366;
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #ced4da;
             margin-top: 20px;
             max-height: 500px;
             overflow-y: auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        button {
+            font-size: 1rem;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #buildButton {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #buildButton:hover {
+            background-color: #0056b3;
+        }
+
+        #runButton {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #runButton:hover {
+            background-color: #218838;
+        }
+
+        div {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            #logs {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
